@@ -7,36 +7,16 @@
 
 import Foundation
 
+// represents the entire screen
 class StockListViewModel: ObservableObject {
     
-    @Published var stocks: [StockViewModel] = [StockViewModel]()
-    
-    var portfolioBalance: Double {
-        return stocks.reduce(0.0, {$0 + $1.marketValue})
-    }
-    
-    var hasBalance: Bool {
-        return portfolioBalance > 0
-    }
-    
+    // get all stocks
     func getAllStocks() {
         
-        Webservice().getAllStocks(url: Constants.Urls.getAllStocks) { [weak self] result in
-            switch result {
-                case .success(let stocks):
-                    
-                    if let stocks = stocks {
-                        self?.stocks = stocks.map(StockViewModel.init)
-                    }
-                    
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-        }
-        
     }
-    
 }
+
+// represents individual stock displayed on the screen
 
 struct StockViewModel {
     

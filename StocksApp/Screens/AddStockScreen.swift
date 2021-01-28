@@ -9,27 +9,28 @@ import SwiftUI
 
 struct AddStockScreen: View {
     
-    @State private var addStockVS = AddStockViewState()
+    @State private var symbol: String = ""
+    @State private var title: String = ""
+    @State private var price: String = ""
+    @State private var quantity: String = ""
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var addStockVM: AddStockViewModel = AddStockViewModel()
     
     var body: some View {
         
         Form {
             
-            TextField("Enter symbol", text: $addStockVS.symbol)
-            TextField("Enter title", text: $addStockVS.title)
-            TextField("Enter price", text: $addStockVS.price)
-            TextField("Enter quantity", text: $addStockVS.quantity)
+            TextField("Enter symbol", text: $symbol)
+            TextField("Enter title", text: $title)
+            TextField("Enter price", text: $price)
+            TextField("Enter quantity", text: $quantity)
             
             HStack {
                 Spacer()
                 Button("Save") {
                 
-                    addStockVM.addStock(addStockVS) {
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    // save the stock
+                    
                 }
                 Spacer()
             }

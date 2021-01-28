@@ -33,22 +33,7 @@ class AddStockViewModel: ObservableObject {
     
     func addStock(_ addStockVS: AddStockViewState, completion: @escaping () -> Void) {
         if(validate(addStockVS)) {
-            // save
-            let stock = Stock.from(addStockVS)
-            
-            Webservice().saveStock(url: Constants.Urls.addNewStock, stock: stock) { result in
-                switch result {
-                case .success(()):
-                    DispatchQueue.main.async {
-                        completion()
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            
-        } else {
-            // error
+            // save the stock 
         }
     }
     

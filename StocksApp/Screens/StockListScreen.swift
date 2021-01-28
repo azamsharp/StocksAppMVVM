@@ -9,26 +9,37 @@ import SwiftUI
 
 struct StockListScreen: View {
     
-    @ObservedObject var stockListVM = StockListViewModel()
     @State private var isPresented = false
     @State private var selectedStock: StockViewModel?
-        
+    
+    let stocks = ["SEARS", "GMSP", "APLE", "BLBUS", "ENRON"]
+    
     var body: some View {
         
         VStack {
             
-            Group {
-                if stockListVM.hasBalance {
-                    StockSummaryView(portfolioBalance: stockListVM.portfolioBalance)
-                } else {
-                    EmptyView()
-                }
-            }
-            
-            StockListView(stocks: stockListVM.stocks) { stock in
-                selectedStock = stock
+            List(stocks, id: \.self) { stock in
+                
+                NavigationLink(
+                    destination: Text("Show stock news"),
+                    label: {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(stock)
+                                    .fontWeight(.bold)
+                                Text("stock name")
+                            }
+                            
+                            Spacer()
+                            Text("$\(Double.random(in: 20...200))")
+                        }
+                    })
+                
+                
+                
             }.listStyle(PlainListStyle())
             
+            /* COVERED LATER IN THE SESSION 
             if let selectedStock = selectedStock {
                 NavigationLink(
                     destination: StockArticleListScreen(stock: selectedStock),
@@ -36,7 +47,7 @@ struct StockListScreen: View {
                     label: {
                         EmptyView()
                     })
-            }
+            } */
             
         }
         .onAppear(perform: {
@@ -49,12 +60,13 @@ struct StockListScreen: View {
         .embedInNavigationView()
         
         .sheet(isPresented: $isPresented, onDismiss: {
-            stockListVM.getAllStocks()
+            // get all stocks
+            
         }, content: {
             AddStockScreen()
         })
         .onAppear(perform: {
-             stockListVM.getAllStocks()
+            // get all stocks
         })
         
     }
