@@ -13,18 +13,16 @@ struct StockArticleListScreen: View {
     @StateObject private var stockArticleListVM = StockArticleListViewModel()
     
     var body: some View {
-        List(stockArticleListVM.stockArticles, id: \.id) { article in
-            VStack(alignment: .leading) {
-                Text(article.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 5)
-                Text(article.description)
-
-            }
-        }
+        
+        // display a list of articles based on the selected stock 
+        List(1...20, id: \.self) { index in
+            Text("Stock article \(index)")
+        }.listStyle(PlainListStyle())
+        
+        
         .navigationTitle(stock.title)
         .onAppear(perform: {
-            stockArticleListVM.getStockArticlesByTitle(title: stock.title)
+            // get stock articles by title
         })
     }
 }
