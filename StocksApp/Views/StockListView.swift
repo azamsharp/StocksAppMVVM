@@ -12,6 +12,7 @@ struct StockListView: View {
     let stocks: [StockViewModel]
     let onSelected: ((StockViewModel) -> Void)?
     
+    
     init(stocks: [StockViewModel], onSelected: ((StockViewModel) -> Void)? = nil) {
         self.stocks = stocks
         self.onSelected = onSelected

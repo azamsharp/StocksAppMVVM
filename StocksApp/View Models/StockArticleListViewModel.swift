@@ -13,7 +13,16 @@ class StockArticleListViewModel: ObservableObject {
     
     func getStockArticlesByTitle(title: String) {
         
-        // get all articles by title 
+        Webservice().getStockArticlesByTitle(url: Constants.Urls.getStockDetailByTitle(title: title)) { result in
+            switch result {
+                case .success(let articles):
+                    DispatchQueue.main.async { [weak self] in
+                        self?.stockArticles = articles.map(StockArticleViewModel.init)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
 }
 
