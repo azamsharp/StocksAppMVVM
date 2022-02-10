@@ -39,16 +39,6 @@ struct StockListScreen: View {
                 
             }.listStyle(PlainListStyle())
             
-            /* COVERED LATER IN THE SESSION 
-            if let selectedStock = selectedStock {
-                NavigationLink(
-                    destination: StockArticleListScreen(stock: selectedStock),
-                    isActive: .constant(true),
-                    label: {
-                        EmptyView()
-                    })
-            } */
-            
         }
         .onAppear(perform: {
             selectedStock = nil
